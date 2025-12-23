@@ -93,14 +93,22 @@
   </div>
 
   <script>
-    const notes = ["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
+  const notes = ["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
 
-    function transpose(step) {
-      document.querySelectorAll(".chords").forEach(line => {
-        line.innerText = line.innerText.replace(
-          /\b([A-G])(b|#)?(m)?\b/g,
-          (match, note, accidental, minor) => {
-            let n = note + (accidental || "");
-            let i = notes.indexOf(n);
-            if (i === -1) return match;
-            let newNote = notes[(i + step + notes.le]()
+  function transpose(step) {
+    document.querySelectorAll(".chords").forEach(el => {
+      let text = el.textContent;
+
+      text = text.replace(/\b([A-G])(b|#)?(m)?\b/g, (match, note, accidental, minor) => {
+        let base = note + (accidental || "");
+        let index = notes.indexOf(base);
+        if (index === -1) return match;
+
+        let newNote = notes[(index + step + notes.length) % notes.length];
+        return newNote + (minor || "");
+      });
+
+      el.textContent = text;
+    });
+  }
+</script>
