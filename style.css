@@ -1,0 +1,29 @@
+body {
+  background: #0e0e0e;
+  color: #eee;
+  font-family: monospace;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.controls {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #555;
+  font-size: 18px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.chord {
+  color: #00bfff;
+  font-weight: bold;
+}
