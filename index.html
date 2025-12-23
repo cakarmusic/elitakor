@@ -1,98 +1,100 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>ElitAkor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>ElitAkor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      background: #000;
-      color: #eee;
-      font-family: monospace;
-      padding: 20px;
-    }
+<style>
+  body {
+    background: #000;
+    color: #eee;
+    font-family: monospace;
+    padding: 20px;
+  }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .controls {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+  .controls {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-    button {
-      background: #222;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 8px 14px;
-      margin: 0 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
+  button {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 8px 14px;
+    margin: 0 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 
-    button:hover {
-      background: #333;
-    }
+  button:hover {
+    background: #333;
+  }
 
-    .song {
-      max-width: 700px;
-      margin: auto;
-    }
+  .song {
+    max-width: 800px;
+    margin: auto;
+  }
 
-    .line {
-      margin-bottom: 14px;
-    }
+  pre.line {
+    margin: 0 0 16px 0;
+    white-space: pre;
+  }
 
-    .chords {
-      color: #4da6ff;
-      font-weight: bold;
-      white-space: pre;
-    }
+  .chords {
+    display: block;
+    color: #4da6ff;
+    font-weight: bold;
+  }
 
-    .lyrics {
-      white-space: pre;
-    }
-  </style>
+  .lyrics {
+    display: block;
+    color: #eee;
+  }
+</style>
 </head>
 
 <body>
 
-  <h1>ElitAkor</h1>
+<h1>ElitAkor</h1>
 
-  <div class="controls">
-    <button onclick="transpose(-1)">–</button>
-    <span>Original</span>
-    <button onclick="transpose(1)">+</button>
-  </div>
+<div class="controls">
+  <button onclick="transpose(-1)">–</button>
+  <span>Original</span>
+  <button onclick="transpose(1)">+</button>
+</div>
 
-  <div class="song">
+<div class="song">
 
-    <div class="line">
-      <div class="chords">Am              C   G   Am</div>
-      <div class="lyrics">Gecenin nemimi düşmüş gözlerine</div>
-    </div>
+<pre class="line">
+<span class="chords">Am              C   G   Am</span>
+<span class="lyrics">Gecenin nemimi düşmüş gözlerine</span>
+</pre>
 
-    <div class="line">
-      <div class="chords">Am          G        Am</div>
-      <div class="lyrics">Ne olur ıslak ıslak bakma öyle</div>
-    </div>
+<pre class="line">
+<span class="chords">Am          G        Am</span>
+<span class="lyrics">Ne olur ıslak ıslak bakma öyle</span>
+</pre>
 
-    <div class="line">
-      <div class="chords">Am        G        Dm        C</div>
-      <div class="lyrics">Saçını dök sineme derdini söyle</div>
-    </div>
+<pre class="line">
+<span class="chords">Am        G        Dm        C</span>
+<span class="lyrics">Saçını dök sineme derdini söyle</span>
+</pre>
 
-    <div class="line">
-      <div class="chords">Am        C   G   Am</div>
-      <div class="lyrics">Yeterki ıslak ıslak bakma öyle</div>
-    </div>
+<pre class="line">
+<span class="chords">Am        C   G   Am</span>
+<span class="lyrics">Yeterki ıslak ıslak bakma öyle</span>
+</pre>
 
-  </div>
+</div>
 
-  <script>
+<script>
   const notes = ["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
 
   function transpose(step) {
@@ -101,10 +103,10 @@
 
       text = text.replace(/\b([A-G])(b|#)?(m)?\b/g, (match, note, accidental, minor) => {
         let base = note + (accidental || "");
-        let index = notes.indexOf(base);
-        if (index === -1) return match;
+        let i = notes.indexOf(base);
+        if (i === -1) return match;
 
-        let newNote = notes[(index + step + notes.length) % notes.length];
+        let newNote = notes[(i + step + notes.length) % notes.length];
         return newNote + (minor || "");
       });
 
@@ -112,3 +114,6 @@
     });
   }
 </script>
+
+</body>
+</html>
