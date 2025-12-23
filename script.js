@@ -1,5 +1,4 @@
 const notes = ["C","Db","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
-
 let transposeValue = 0;
 
 const rawSong = `
@@ -14,10 +13,9 @@ function transposeChord(chord, step) {
   const match = chord.match(/^([A-G])(b|#)?(.*)$/);
   if (!match) return chord;
 
-  let [_, root, accidental, suffix] = match;
+  let [, root, accidental, suffix] = match;
   let note = root + (accidental || "");
   let index = notes.indexOf(note);
-
   if (index === -1) return chord;
 
   let newIndex = (index + step + notes.length) % notes.length;
@@ -25,13 +23,34 @@ function transposeChord(chord, step) {
 }
 
 function render() {
-  let output = rawSong.replace(/\[([^\]]+)\]/g, (_, chord) => {
-    return `<span class="chord">${transposeChord(chord, transposeValue)}</span>`;
+  const lines = rawSong.split("\n");
+  let output = "";
+
+  lines.forEach(line => {
+    let chordLine = "";
+    let lyricLine = "";
+    let i = 0;
+
+    while (i < line.length) {
+      if (line[i] === "[") {
+        let end = line.indexOf("]", i);
+        let chord = line.substring(i + 1, end);
+        let tChord = transposeChord(chord, transposeValue);
+
+        chordLine += tChord;
+        lyricLine += " ".repeat(tChord.length);
+        i = end + 1;
+      } else {
+        chordLine += " ";
+        lyricLine += line[i];
+        i++;
+      }
+    }
+
+    output += chordLine + "\n" + lyricLine + "\n";
   });
 
-  document.getElementById("song").innerHTML = output;
-  document.getElementById("key").innerText =
-    transposeValue === 0 ? "Original" : (transposeValue > 0 ? "+"+transposeValue : transposeValue);
+  document.getElementById("song").textContent = output;
 }
 
 function transpose(step) {
